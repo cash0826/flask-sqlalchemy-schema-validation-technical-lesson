@@ -5,12 +5,12 @@ from pprint import pprint
 
 class VetSchema(Schema):
     
-    name = fields.Str()
+    name = fields.Str(validate=lambda str: str.startswith("Dr.")) # validates that name should start with "Dr."
     email = fields.Email()   #Email has built-in validation
     website = fields.URL()   #URL has built-in validation
-    specialty = fields.Str()
-    years_practice = fields.Int()
-    diploma = fields.Str()
+    specialty = fields.Str(validate=validate.Length(min=1)) # validates that it is not an empty string
+    years_practice = fields.Int(validate=validate.Range(min=0, max=100)) # validates integer between 1 to 100 
+    diploma = fields.Str(validate=validate.OneOf(["DVM", "VMD"])) # validates selection
 
 
 vet_data = [

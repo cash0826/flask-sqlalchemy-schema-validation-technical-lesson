@@ -24,7 +24,7 @@ class Cat:
 class CatSchema(Schema):
     
     @validates("coat")
-    def validate_coat( self, value ):
+    def validate_coat( self, value, **kwargs ):
         coat_colorings = ["Tortoiseshell", "Calico", "Tabby", "Black", "Gray", "White", "Tuxedo"]
         if value not in coat_colorings:
             raise ValidationError(f"Must be one of: {', '.join(coat_colorings)}.")

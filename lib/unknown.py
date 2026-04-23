@@ -1,6 +1,7 @@
-# lib/validate_unknown.py 
+# lib/unknown.py 
 
-from marshmallow import Schema, fields, post_load, ValidationError 
+from marshmallow import Schema, fields, post_load, ValidationError, INCLUDE, EXCLUDE
+from pprint import pprint
 
 # model
 
@@ -26,8 +27,12 @@ class DogSchema(Schema):
 friendly_dog = '{"name": "Snuggles","breed": "Beagle", "tail_wagging": true, "is_friendly" : true}'
 
 try:
-    result = DogSchema().loads(friendly_dog)
-    pprint(result)  # line not reached if error thrown
+    # default_result = DogSchema().loads(friendly_dog)
+    # raise_unknown_error_result = DogSchema(unknown=INCLUDE).loads(friendly_dog)
+    # exclude_result = DogSchema(unknown=EXCLUDE).loads(friendly_dog)
+    # raise_unknown_error_result2 = DogSchema().loads(friendly_dog, unknown=INCLUDE)
+    exclude_result2 = DogSchema().loads(friendly_dog, unknown=EXCLUDE)
+    pprint(exclude_result2)  # line not reached if error thrown
 
 except ValidationError as err:
     print(err.messages)    # {'is_friendly': ['Unknown field.']}
